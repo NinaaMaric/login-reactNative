@@ -53,7 +53,7 @@ class Login extends Component {
     // Show spinner when call is made
     this.setState({ isLoading: true });
 
-    APIKit.get("https://sibelogistics.ddns.net:8383/rest/scriptrunner/latest/custom/getDataVisol", payload)
+    APIKit.get("/rest/scriptrunner/latest/custom/getDataVisol", payload)
       .then(onSuccess)
       .catch(onFailure);
   }
