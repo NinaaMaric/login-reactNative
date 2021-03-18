@@ -12,6 +12,7 @@ import {
 import Spinner from "react-native-loading-spinner-overlay";
 
 import APIKit, { setClientToken } from "./APIKIT";
+import Dashboard from "./Dashboard";
 
 const initialState = {
   username: "",
@@ -161,7 +162,7 @@ class Login extends Component {
           </View>
         ) : (
           <View>
-            <Text>Successfully authorized!</Text>
+           <Dashboard />
           </View>
         )}
       </View>
