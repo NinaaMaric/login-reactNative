@@ -47,14 +47,14 @@ class Login extends Component {
     };
 
     const onFailure = (error) => {
-      console.log(error && error.response, "RESPONSE");
+      console.log(error && error.response, "RESPONSE kod login");
       this.setState({ errors: error.response.data, isLoading: false });
     };
 
     // Show spinner when call is made
     this.setState({ isLoading: true });
 
-    APIKit.get("/rest/scriptrunner/latest/custom/getDataVisol", payload)
+    APIKit.get(`/rest/scriptrunner/latest/custom/genToken?ko=${username}&si=${password}`, payload)
       .then(onSuccess)
       .catch(onFailure);
   }

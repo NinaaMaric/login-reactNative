@@ -9,7 +9,7 @@ let APIKit = axios.create({
 // Set JSON Web Token in Client to be included in all calls
 export const setClientToken = token => {
   APIKit.interceptors.request.use(function(config) {
-    config.headers.Authorization = token ? `Bearer ${token}` : '';
+    config.headers.Authorization = '/rest/scriptrunner/latest/custom/genToken?';
     return config;
   });
 };
