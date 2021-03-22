@@ -9,7 +9,7 @@ export default function TabBar({ state, navigation }) {
     
     const { routes } = state;
 
-    const renderColor = (currentTab) => currentTab === selected ? '#2f9fb1': 'black';
+    const renderColor = (currentTab) => currentTab === selected ? '#2f9fb1' : 'grey';
 
     const handlePress = (activeTab, index) =>{
         if(state.index !== index){

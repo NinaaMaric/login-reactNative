@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Text, TouchableOpacity, View, Dimensions } from "react-native";
-import axios from "axios";
+import React from "react";
+import { Text, View, Dimensions } from "react-native";
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import Quotation from "./screens/Quotation";
 import Account from "./screens/Account";
