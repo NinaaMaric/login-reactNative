@@ -7,12 +7,13 @@ import {
   Image,
   TextInput,
   StyleSheet,
+  Alert,
 } from "react-native";
-
 import Spinner from "react-native-loading-spinner-overlay";
-
 import APIKit, { setClientToken } from "./APIKIT";
-import Dashboard from "./Dashboard";
+
+import { NavigationContainer } from "@react-navigation/native";
+import TabNavigator from "./navigation/TabNavigator";
 
 const initialState = {
   username: "",
@@ -54,11 +55,14 @@ class Login extends Component {
     // Show spinner when call is made
     this.setState({ isLoading: true });
 
-    APIKit.get(`/rest/scriptrunner/latest/custom/genToken?ko=${username}&si=${password}`, payload)
+    APIKit.get(
+      `/rest/scriptrunner/latest/custom/genToken?ko=${username}&si=${password}`,
+      payload
+    )
       .then(onSuccess)
       .catch(onFailure);
   }
-
+  /* 
   getNonFieldErrorMessage() {
     // Return errors that are served in `non_field_errors`
     let message = null;
@@ -93,7 +97,7 @@ class Login extends Component {
       );
     }
     return message;
-  }
+  } */
 
   render() {
     const { isLoading } = this.state;
@@ -127,8 +131,6 @@ class Login extends Component {
                 placeholderTextColor="#999"
               />
 
-              {this.getErrorMessageByField("username")}
-
               <TextInput
                 ref={(node) => {
                   this.passwordInput = node;
@@ -148,10 +150,6 @@ class Login extends Component {
                 placeholderTextColor="#999"
               />
 
-              {this.getErrorMessageByField("password")}
-
-              {this.getNonFieldErrorMessage()}
-
               <TouchableOpacity
                 style={styles.loginButton}
                 onPress={this.onPressLogin.bind(this)}
@@ -161,9 +159,9 @@ class Login extends Component {
             </View>
           </View>
         ) : (
-          <View>
-           <Dashboard />
-          </View>
+          <NavigationContainer>
+            <TabNavigator />
+          </NavigationContainer>
         )}
       </View>
     );
@@ -214,7 +212,7 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     borderColor: "#35c1d7",
-    backgroundColor: '#35c1d7',
+    backgroundColor: "#35c1d7",
     borderWidth: 2,
     padding: 12,
     marginTop: 15,
