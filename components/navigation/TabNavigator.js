@@ -6,7 +6,7 @@ import Account from "./screens/Account";
 import Profile from "./screens/Profile";
 import Invoice from './screens/Invoice'
 import TabBar from "./TabBar";
-import ProfileNavigatior from "./ProfileNavigatior";
+import ProfileNavigatior from "./screens/ProfileNavigatior";
 import Qrcode from "./screens/Qrcode";
 
 const Tab = createBottomTabNavigator();

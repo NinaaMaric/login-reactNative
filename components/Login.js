@@ -8,10 +8,11 @@ import {
   TextInput,
   StyleSheet,
   Alert,
+  ImageBackground,
+  Keyboard,
 } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
 import APIKit, { setClientToken } from "./APIKIT";
-
 import { NavigationContainer } from "@react-navigation/native";
 import TabNavigator from "./navigation/TabNavigator";
 
@@ -34,12 +35,15 @@ class Login extends Component {
 
   onPasswordChange = (password) => {
     this.setState({ password });
+    
   };
 
   onPressLogin() {
+    Keyboard.dismiss();
     const { username, password } = this.state;
     const payload = { username, password };
     console.log(payload);
+   
 
     const onSuccess = ({ data }) => {
       // Set JSON Web Token on success
@@ -48,11 +52,12 @@ class Login extends Component {
     };
 
     const onFailure = (error) => {
-      console.log(error && error.response, "RESPONSE kod login");
+      //console.log(error && error.response, "RESPONSE kod login");
       this.setState({ errors: error.response.data, isLoading: false });
+      Alert.alert(error.response.data);
+      console.log(error.response.data, "ERROR");
     };
 
-    // Show spinner when call is made
     this.setState({ isLoading: true });
 
     APIKit.get(
@@ -62,46 +67,9 @@ class Login extends Component {
       .then(onSuccess)
       .catch(onFailure);
   }
-  /* 
-  getNonFieldErrorMessage() {
-    // Return errors that are served in `non_field_errors`
-    let message = null;
-    const { errors } = this.state;
-    if (errors.non_field_errors) {
-      message = (
-        <View style={styles.errorMessageContainerStyle}>
-          {errors.non_field_errors.map((item) => (
-            <Text style={styles.errorMessageTextStyle} key={item}>
-              {item}
-            </Text>
-          ))}
-        </View>
-      );
-    }
-    return message;
-  }
-
-  getErrorMessageByField(field) {
-    // Checks for error message in specified field
-    // Shows error message from backend
-    let message = null;
-    if (this.state.errors[field]) {
-      message = (
-        <View style={styles.errorMessageContainerStyle}>
-          {this.state.errors[field].map((item) => (
-            <Text style={styles.errorMessageTextStyle} key={item}>
-              {item}
-            </Text>
-          ))}
-        </View>
-      );
-    }
-    return message;
-  } */
 
   render() {
     const { isLoading } = this.state;
-
     return (
       <View style={styles.containerStyle}>
         <Spinner visible={isLoading} />
@@ -113,7 +81,13 @@ class Login extends Component {
                 source={require("../assets/Logo.png")}
                 style={styles.logotype}
               />
+              <ImageBackground
+                source={require("../assets/vision.jpg")}
+                style={{ width: "100%", height: "70%", opacity: 0.8 }}
+                imageStyle={{ resizeMode: "contain" }}
+              ></ImageBackground>
             </View>
+           
             <View style={styles.wrapp}>
               <TextInput
                 style={styles.input}
@@ -123,18 +97,18 @@ class Login extends Component {
                 autoCapitalize="none"
                 autoCorrect={false}
                 returnKeyType="next"
-                onSubmitEditing={(event) =>
+                /*   onSubmitEditing={(event) =>
                   this.passwordInput.wrappedInstance.focus()
-                }
+                } */
                 onChangeText={this.onUsernameChange}
                 underlineColorAndroid="transparent"
                 placeholderTextColor="#999"
               />
 
               <TextInput
-                ref={(node) => {
+                /* ref={(node) => {
                   this.passwordInput = node;
-                }}
+                }} */
                 style={styles.input}
                 value={this.state.password}
                 maxLength={40}
@@ -170,28 +144,29 @@ class Login extends Component {
 
 export default Login;
 
-// Define styles here
 const styles = StyleSheet.create({
   innerContainer: {
     marginBottom: 32,
   },
   logotypeContainer: {
-    alignItems: "center",
+    alignItems: "flex-end",
   },
   logotype: {
-    maxWidth: 280,
-    maxHeight: 50,
-    marginTop: 50,
+    minWidth: 220,
+    maxHeight: 35,
+    marginTop: 8,
+    marginBottom: 10,
     resizeMode: "contain",
-    alignItems: "center",
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
   },
   containerStyle: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#f7f7f7",
+    backgroundColor: "#f8fbff99",
   },
   wrapp: {
-    flex: 1,
+    height: 20,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -204,37 +179,36 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 4,
+      height: 1,
     },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    marginBottom: 12,
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+    marginBottom: 15,
+    elevation: 1,
   },
   loginButton: {
     borderColor: "#35c1d7",
     backgroundColor: "#35c1d7",
     borderWidth: 2,
-    padding: 12,
+    padding: 15,
     marginTop: 15,
     minWidth: 220,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 6,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
   },
   loginButtonText: {
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
-  },
-  errorMessageContainerStyle: {
-    marginBottom: 8,
-    backgroundColor: "#fee8e6",
-    padding: 8,
-    borderRadius: 4,
-  },
-  errorMessageTextStyle: {
-    color: "#db2828",
-    textAlign: "center",
-    fontSize: 12,
   },
 });

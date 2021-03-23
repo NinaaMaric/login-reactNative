@@ -43,10 +43,11 @@ const styles = StyleSheet.create({
   },
   container: {
       flexDirection: 'row',
-      backgroundColor: '#fff',
+      backgroundColor: '#f8fbff',
       justifyContent: 'space-between',
-      borderRadius: 10,
+      borderTopLeftRadius: 10,
+      borderTopRightRadius: 10,
       elevation: 1,
-      
+      paddingVertical: 15
   },
 });

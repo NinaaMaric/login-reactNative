@@ -1,8 +1,8 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack';
-import Profile from './screens/Profile';
-import Test from './screens/Test'; 
+import Profile from './Profile';
+import Test from './Test'; 
 
 const Stack = createStackNavigator()
 

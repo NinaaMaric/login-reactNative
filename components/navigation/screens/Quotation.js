@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import axios from "axios";
 
 const Quotation = () => {
@@ -12,13 +12,13 @@ const Quotation = () => {
       )
       .then((response) => {
         /* console.log(response, "RESPONSE"); */
-        // alert(JSON.stringify(response.data));
+        Alert.alert(JSON.stringify(response.data));
         setData(response.data);
         console.log(response.data);
-        response.data.map((d)=>{
+  /*       response.data.map((d)=>{
           console.log(d, "MAP");
           return <Text > {d} </Text>
-        })
+        }) */
       })
       .catch((error) => {
         // handle error
@@ -27,21 +27,14 @@ const Quotation = () => {
       .finally(() => {
         console.log("ulazi");
         setData(data);
+      /*   Alert.alert(data) */
         console.log(data);
-      });
+      })
   }, []);
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>QUOTATION</Text>
-{/* <Text>
-      {data &&
-        data.map((d) => {
-          console.log(d, "MAPIRANJE");
-          return <Text> {d.field} </Text>;
-        })}
-</Text>
- */}
     </View>
   );
 };
